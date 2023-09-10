@@ -28,7 +28,8 @@ public class Display : MonoBehaviour
 
     private void HandleKey(R_MessageButton obj)
     {
-        if (obj.SenderId == (int)GameEnums.Senders.ButtonNumber || obj.SenderId == (int)GameEnums.Senders.ButtonClear)
+        if (obj.SenderId == (int)GameEnums.Senders.ButtonNumber || obj.SenderId == (int)GameEnums.Senders.ButtonClear ||
+            obj.SenderId == (int)GameEnums.Senders.ButtonUnlock)
         {
             switch (obj.action)
             {
@@ -38,6 +39,10 @@ public class Display : MonoBehaviour
 
                 case GameEnums.ActionKeyboard.SendDelete:
                     RemoveLastKey();
+                    break;
+
+                case GameEnums.ActionKeyboard.SendUnlock:
+                    CheckPassword();
                     break;
 
                 default:
@@ -53,7 +58,6 @@ public class Display : MonoBehaviour
     {
         if (lastIndex > display.Length - 1) return;
 
-        Debug.Log("Index: " + lastIndex);
         display[lastIndex].text = letra;
         lastIndex++; 
     }
@@ -67,8 +71,6 @@ public class Display : MonoBehaviour
             return;
         }
 
-
-        Debug.Log("Index: " + lastIndex);
         display[lastIndex].text = string.Empty;
         
     }
@@ -76,14 +78,27 @@ public class Display : MonoBehaviour
     private void CheckPassword()
     {
         bool keyCorrect = false;
+        string passIntroduced = string.Empty;
 
         for(int i = 0, max = display.Length; i < max; i++)
         {
+            //Comprobamos si estan todos los digitos introducidos
             if (string.IsNullOrEmpty(display[i].text))
             {
                 keyCorrect = false;
+                Debug.Log("Clave incorrecta por que falta un caracter");
                 break;
             }
+
+            //Obtenemos la primera letra de cada string
+            char letra = display[i].text[0];
+            passIntroduced += letra;
+        }
+
+        //Comprobamos el password introducido
+        if(passIntroduced == "GREMIO")
+        {
+            keyCorrect = true;
         }
 
         if (!keyCorrect)

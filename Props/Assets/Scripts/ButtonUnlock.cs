@@ -9,7 +9,7 @@ public class ButtonUnlock : MonoBehaviour
 
     private void Start()
     {
-        messageButton = new R_MessageButton((uint)GameEnums.Senders.ButtonNumber, GameEnums.ActionKeyboard.SendUnlock);
+        messageButton = new R_MessageButton((uint)GameEnums.Senders.ButtonUnlock, GameEnums.ActionKeyboard.SendUnlock);
     }
 
     public void PressButton()

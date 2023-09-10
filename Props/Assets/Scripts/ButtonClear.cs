@@ -10,7 +10,7 @@ public class ButtonClear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        messageButton = new R_MessageButton((uint)GameEnums.Senders.ButtonNumber, GameEnums.ActionKeyboard.SendDelete);
+        messageButton = new R_MessageButton((uint)GameEnums.Senders.ButtonClear, GameEnums.ActionKeyboard.SendDelete);
     }
 
     public void PressButton()
