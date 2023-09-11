@@ -1,3 +1,4 @@
+using r_core.core;
 using r_core.coresystems.optionalsystems.messages;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,13 @@ using UnityEngine;
 
 public class Display : MonoBehaviour
 {
+    [SerializeField] private GameObject backgroundWrong;
+    [SerializeField] private GameObject backgroundCorrect;
+    [SerializeField] private UILabel labelIntentos;
+
     public UILabel[] display;
     private int lastIndex = 0;
+    private byte intentos = 3;
 
     private void Awake()
     {
@@ -49,9 +55,7 @@ public class Display : MonoBehaviour
                     Debug.Log("Caso no contemplado");
                     break;
             }
-        }
-
-        
+        }   
     }
 
     private void AddKey(string letra)
@@ -77,6 +81,8 @@ public class Display : MonoBehaviour
 
     private void CheckPassword()
     {
+        if (intentos == 0) return;
+
         bool keyCorrect = false;
         string passIntroduced = string.Empty;
 
@@ -86,7 +92,6 @@ public class Display : MonoBehaviour
             if (string.IsNullOrEmpty(display[i].text))
             {
                 keyCorrect = false;
-                Debug.Log("Clave incorrecta por que falta un caracter");
                 break;
             }
 
@@ -103,12 +108,44 @@ public class Display : MonoBehaviour
 
         if (!keyCorrect)
         {
-            Debug.Log("Clave incorrecta");
+            //Indicamos que se ha equivocado el usuario
+            backgroundWrong.gameObject.SetActive(true);
+
+            //Reducimos los intentos
+            intentos--;
+
+            if(intentos == 0)
+            {
+                //Indicamos al usuario que tendra que esperar 1 min para poder intentarlo otra vez
+                labelIntentos.text = "ESPERE 1 MINUTO Y VUELVA A INTENTARLO";
+
+                
+                //Montamos un timer para montar nuevos intentos en 1 minuto
+                R_Core.GetInstance().StartTimer(60f, this, cacheAction =>
+                {
+                    (cacheAction.Context as Display).SetNewIntentos();
+                });
+                
+                
+            }
+            else
+            {
+                //Se lo indicamos al usuario
+                labelIntentos.text = "QUEDAN " + intentos + " INTENTOS";
+            }
+
         }
         else
         {
-            Debug.Log("Clave correcta");
+            //Debug.Log("Clave correcta");
+            backgroundCorrect.gameObject.SetActive(true);
         }
+    }
 
+    private void SetNewIntentos()
+    {
+        intentos = 3;
+
+        labelIntentos.text = "QUEDAN 3 INTENTOS";   
     }
 }

@@ -30,7 +30,7 @@ namespace r_core.core
     {
         //Editor links
         // -------------------------------------------------------
-        [SerializeField] private int totalTimersPooled = 100;
+        [SerializeField] private int totalTimersPooled = 200;
         [SerializeField] private bool setGame30FPS = false;
         [SerializeField] private bool slowPhysicsFor60FPS = false;
         [SerializeField] private float delayTimeToStart = 1f; //NEW --> Para nosotros de momento va a ser 0
@@ -90,8 +90,6 @@ namespace r_core.core
         {
             //Indicamos que no se destruya el core
             base.Initialize(true);
-
-            Debug.Log("HOla desde el core");
 
             gamePaused = false;
 
@@ -212,8 +210,8 @@ namespace r_core.core
             }
 
             //Cargamos el audio controller
-            soundsGamePool = FindObjectOfType<R_SoundsGamePool>();
-            soundsGamePool.InitLoadAllSounds();
+            //soundsGamePool = FindObjectOfType<R_SoundsGamePool>();
+            //soundsGamePool.InitLoadAllSounds();
 
             //Cargamos el servicio de guardado y carga de datos
             saveLoad = new SaveLoadController();
