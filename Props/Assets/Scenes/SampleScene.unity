@@ -1818,6 +1818,7 @@ MonoBehaviour:
   backgroundWrong: {fileID: 1789560280}
   backgroundCorrect: {fileID: 1370283890}
   labelIntentos: {fileID: 838756657}
+  cuentaAtras: {fileID: 1543619592}
   display: []
 --- !u!1 &838756655
 GameObject:

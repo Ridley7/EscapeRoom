@@ -10,6 +10,7 @@ public class Display : MonoBehaviour
     [SerializeField] private GameObject backgroundWrong;
     [SerializeField] private GameObject backgroundCorrect;
     [SerializeField] private UILabel labelIntentos;
+    [SerializeField] private Countdown cuentaAtras;
 
     public UILabel[] display;
     private int lastIndex = 0;
@@ -137,8 +138,12 @@ public class Display : MonoBehaviour
         }
         else
         {
-            //Debug.Log("Clave correcta");
+            //La clave es correcta
             backgroundCorrect.gameObject.SetActive(true);
+
+            //Paramos el contador
+            cuentaAtras.StopCountdown();
+            
         }
     }
 

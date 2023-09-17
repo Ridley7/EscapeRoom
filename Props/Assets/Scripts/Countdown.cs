@@ -53,4 +53,9 @@ public class Countdown : MonoBehaviour
             labelTiempo.text = "00:00";
         }
     }
+
+    public void StopCountdown()
+    {
+        run = false;
+    }
 }
